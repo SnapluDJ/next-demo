@@ -1,7 +1,22 @@
-export default function Home() {
+import ArticleList from "../components/ArticleList";
+
+export default function Home(props) {
+  const { articles } = props;
+
   return (
     <div>
-      <h1>welcome to next</h1>
+      <ArticleList list={articles} />
     </div>
   );
 }
+
+export const getStaticProps = async () => {
+  const res = await fetch(
+    "https://jsonplaceholder.typicode.com/posts?_limit=6"
+  );
+
+  const articles = await res.json();
+  return {
+    props: { articles },
+  };
+};
