@@ -62,7 +62,7 @@ export const getStaticPaths = async () => {
     // paths: articles.map((a) => ({
     //   params: { id: a.id.toString() },
     // })),
-    fallback: true,
+    fallback: false,
     // fallback: false // will show 404 not found
   };
 };
