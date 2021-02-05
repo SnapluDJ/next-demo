@@ -6,8 +6,8 @@ import Header from "./Header";
 const Layout = (props) => {
   return (
     <>
-      <Nav />
       <Header />
+      <Nav />
       <div className={styles.container}>
         <main className={styles.main}>{props.children}</main>
       </div>

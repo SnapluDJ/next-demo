@@ -9,6 +9,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "mongoose": "^5.11.15",
     "next": "10.0.4",
     "react": "17.0.1",
     "react-dom": "17.0.1",

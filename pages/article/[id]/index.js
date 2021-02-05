@@ -15,7 +15,7 @@ const article = (props) => {
       <div>this is article {router.query.id}</div>
       <p>{article.body}</p>
 
-      <Link href="/">go back</Link>
+      <Link href="/">back</Link>
 
       <br />
 
