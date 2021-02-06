@@ -1,16 +1,16 @@
-import { articles } from "../../../data";
 import dbConnect from "../../../util/dbConnect";
-// import Proudct from "../../../models/product";
+import Product from "../../../models/product";
 
 export default async function handler(req, res) {
-  // await dbConnect();
+  await dbConnect();
 
-  // try {
-  //   const products = await Proudct.find();
-  //   res.status(200).json(products);
-  // } catch (err) {
-  //   res.status(400).json(err);
-  // }
+  try {
+    const result = await Product.find();
 
-  res.status(200).json(articles);
+    const products = result.map((doc) => doc.toObject());
+
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 }

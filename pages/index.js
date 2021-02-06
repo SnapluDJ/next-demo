@@ -2,21 +2,22 @@ import ArticleList from "../components/ArticleList";
 import { host } from "../config/host";
 
 export default function Home(props) {
-  const { articles } = props;
+  const { articles, products } = props;
 
   return (
     <div>
-      <ArticleList list={articles} />
+      {/* <ArticleList list={articles} /> */}
+      {console.log(products)}
     </div>
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const res = await fetch(`${host}/api/articles`);
+  const products = await res.json();
 
-  const articles = await res.json();
   return {
-    props: { articles },
+    props: { products },
   };
 };
 
