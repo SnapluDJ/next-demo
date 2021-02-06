@@ -1,23 +1,37 @@
 import ArticleList from "../components/ArticleList";
 import { host } from "../config/host";
 
+import styles from "../styles/Home.module.css";
+
 export default function Home(props) {
-  const { articles, products } = props;
+  const { products } = props;
+
+  const editProductPrice = async (id) => {
+    await fetch(`${host}/products/${id}`, { method: "PATCH" });
+  };
 
   return (
     <div>
-      {/* <ArticleList list={articles} /> */}
-      {console.log(products)}
+      {products.map((p, i) => (
+        <div
+          className={styles.productName}
+          key={i}
+          onClick={() => editProductPrice(p._id)}
+        >
+          {p.name}
+        </div>
+      ))}
     </div>
   );
 }
 
 export const getServerSideProps = async () => {
-  const res = await fetch(`${host}/api/articles`);
-  const products = await res.json();
+  const res = await fetch(`${host}/products`);
+
+  const result = await res.json();
 
   return {
-    props: { products },
+    props: { products: result.products },
   };
 };
 
