@@ -9,7 +9,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <meta property="custom" content="custom document js file" />
+        </Head>
         <body>
           <Main />
           <NextScript />

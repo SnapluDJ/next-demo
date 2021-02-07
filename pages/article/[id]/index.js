@@ -26,7 +26,25 @@ const article = (props) => {
   );
 };
 
-// export const getServerSideProps = async (context) => {
+export const getServerSideProps = async (context) => {
+  // const res = await fetch(
+  //   `https://jsonplaceholder.typicode.com/posts/${context.params.id}`
+  // );
+
+  // const article = await res.json();
+
+  // return {
+  //   props: { article },
+  // };
+
+  const res = await fetch("http://localhost:3000/api/articles/12");
+
+  return {
+    props: { article: {} },
+  };
+};
+
+// export const getStaticProps = async (context) => {
 //   const res = await fetch(
 //     `https://jsonplaceholder.typicode.com/posts/${context.params.id}`
 //   );
@@ -38,33 +56,21 @@ const article = (props) => {
 //   };
 // };
 
-export const getStaticProps = async (context) => {
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${context.params.id}`
-  );
+// export const getStaticPaths = async () => {
+//   const res = await fetch(
+//     `https://jsonplaceholder.typicode.com/posts?_limit=6`
+//   );
 
-  const article = await res.json();
+//   const articles = await res.json();
 
-  return {
-    props: { article },
-  };
-};
-
-export const getStaticPaths = async () => {
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/posts?_limit=6`
-  );
-
-  const articles = await res.json();
-
-  return {
-    paths: articles.map((a) => `/article/${a.id}`),
-    // paths: articles.map((a) => ({
-    //   params: { id: a.id.toString() },
-    // })),
-    fallback: false,
-    // fallback: false // will show 404 not found
-  };
-};
+//   return {
+//     paths: articles.map((a) => `/article/${a.id}`),
+//     // paths: articles.map((a) => ({
+//     //   params: { id: a.id.toString() },
+//     // })),
+//     fallback: false,
+//     // fallback: false // will show 404 not found
+//   };
+// };
 
 export default article;
