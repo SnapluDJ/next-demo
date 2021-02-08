@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 import ArticleList from "../components/ArticleList";
 import { host } from "../config/host";
@@ -35,39 +36,49 @@ export default function Home(props) {
           {p.name}
         </div>
       ))}
+
+      <Image src="/test.png" width={980} height={720} />
+
+      <Image
+        src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+        width={980}
+        height={720}
+      />
     </div>
   );
 }
 
-export const getServerSideProps = async () => {
-  // const res = await fetch(`${host}/products`);
+// export const getServerSideProps = async (context) => {
+//   // const res = await fetch(`${host}/products`);
 
-  // const result = await res.json();
+//   // const result = await res.json();
 
-  const r = await fetch("http://localhost:3000/api/articles/", {
-    headers: {
-      "Content-type": "application/json",
-    },
-    method: "POST",
-    body: JSON.stringify({ name: "dongjie" }),
-  });
+//   console.log(context.query);
 
-  // return {
-  //   props: { products: result.products },
-  // };
+//   const r = await fetch("http://localhost:3000/api/articles/", {
+//     headers: {
+//       "Content-type": "application/json",
+//     },
+//     method: "POST",
+//     body: JSON.stringify({ name: "dongjie" }),
+//   });
 
-  return {
-    props: { products: [] },
-  };
-};
+//   // return {
+//   //   props: { products: result.products },
+//   // };
 
-// export const getStaticProps = async () => {
-//   const res = await fetch(
-//     "https://jsonplaceholder.typicode.com/posts?_limit=6"
-//   );
-
-//   const articles = await res.json();
 //   return {
-//     props: { articles },
+//     props: { products: [] },
 //   };
 // };
+
+export const getStaticProps = async () => {
+  const res = await fetch(
+    "https://jsonplaceholder.typicode.com/posts?_limit=6"
+  );
+
+  const articles = await res.json();
+  return {
+    props: { articles },
+  };
+};
