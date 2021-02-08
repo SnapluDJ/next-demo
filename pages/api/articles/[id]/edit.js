@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 import dbConnect from "../../../../util/dbConnect";
-import Product from "../../../../models/product";
+import Product from "../../../../models/Product";
 
 export default async function handler(req, res) {
   await dbConnect();
