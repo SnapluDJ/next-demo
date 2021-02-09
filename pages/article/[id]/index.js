@@ -37,7 +37,7 @@ export const getServerSideProps = async (context) => {
   //   props: { article },
   // };
 
-  const res = await fetch("http://localhost:3000/api/articles/12");
+  const res = await fetch("http://localhost:3000/api/articles/12?a=1");
 
   return {
     props: { article: {} },

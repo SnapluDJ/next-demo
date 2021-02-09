@@ -61,7 +61,10 @@ export const getServerSideProps = async (context) => {
   //   body: JSON.stringify({ name: "dongjie" }),
   // });
 
-  const res = await fetch("http://localhost:3000/api/articles/");
+  const res = await fetch("http://localhost:3000/api/articles?a=1", {
+    method: "POST",
+    body: JSON.stringify({ name: "dongjie" }),
+  });
 
   const result = await res.json();
 

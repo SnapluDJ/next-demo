@@ -1,9 +1,9 @@
 import { articles } from "../../../../data";
 
 export default function handler(req, res) {
-  const id = req.query.id;
+  // const id = req.query.id;
 
-  console.log(req);
+  console.log(req.query);
 
   res.status(200).json({ message: "ok" });
 
