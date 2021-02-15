@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import ArticleList from "../components/ArticleList";
 import { host } from "../config/host";
 
+import parseCookies from "../util/parseCookies";
+
 import styles from "../styles/Home.module.css";
 
 export default function Home(props) {
-  const { products } = props;
+  const { products, auth } = props;
+
+  const router = useRouter();
+
+  const [cookie, setCookie] = useCookies(["user"]);
+
+  // if (!auth) {
+  //   router.replace("/login");
+  // }
 
   // const [products, setProducts] = useState([]);
   // const [count, addCount] = useState(0);
@@ -17,6 +29,14 @@ export default function Home(props) {
   //   const result = await res.json();
   //   setProducts(result.products);
   // }, [count]);
+
+  useEffect(() => {
+    setCookie("name", "dongjie", {
+      path: "/",
+      maxAge: 3600, // Expires after 1hr
+      sameSite: true,
+    });
+  }, []);
 
   const editProductPrice = async (id) => {
     await fetch(`${host}/products/${id}`, { method: "PATCH" });
@@ -47,6 +67,8 @@ export default function Home(props) {
 }
 
 export const getServerSideProps = async (context) => {
+  console.log(parseCookies(context.req).name);
+
   // const res = await fetch(`${host}/products`);
 
   // const result = await res.json();
@@ -61,15 +83,26 @@ export const getServerSideProps = async (context) => {
   //   body: JSON.stringify({ name: "dongjie" }),
   // });
 
-  const res = await fetch("http://localhost:3000/api/articles?a=1", {
-    method: "POST",
-    body: JSON.stringify({ name: "dongjie" }),
+  // const res = await fetch("http://localhost:3000/api/articles?a=1", {
+  //   method: "POST",
+  //   body: JSON.stringify({ name: "dongjie" }),
+  // });
+
+  // setCookie("user", JSON.stringify(data), {
+  //   path: "/",
+  //   maxAge: 3600, // Expires after 1hr
+  //   sameSite: true,
+  // });
+
+  const res = await fetch("http://localhost:4000/products", {
+    headers: {
+      token: "this is token from dongjie",
+    },
   });
 
   const result = await res.json();
-
   return {
-    props: { products: result },
+    props: { products: result.products, auth: false },
   };
 
   // return {
